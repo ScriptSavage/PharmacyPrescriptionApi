@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\" />
       <Folder Include="Exceptions\" />
-      <Folder Include="Interfaces\" />
-      <Folder Include="ValueObjects\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NLog.Web.AspNetCore" Version="6.0.5" />
     </ItemGroup>
 
 </Project>
