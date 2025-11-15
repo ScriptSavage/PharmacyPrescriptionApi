@@ -1,6 +1,6 @@
 namespace Domain.Entities.PatientValueObjects;
 
-public record PatientEmailAddress
+public class PatientEmailAddress
 {
     private string _emailAddress;
 
@@ -16,15 +16,15 @@ public record PatientEmailAddress
         }
     }
 
-    public PatientEmailAddress(string value)
+    public PatientEmailAddress(string emailAddress)
     {
-        EmailAddress = value;
+        EmailAddress = emailAddress;
     }
-    
+
     public static implicit operator string(PatientEmailAddress emailAddress) => emailAddress.EmailAddress;
-    public static implicit operator PatientEmailAddress(string value)=> new PatientEmailAddress(value);
+    public static implicit operator PatientEmailAddress(string emailAddress)=> new PatientEmailAddress(emailAddress);
     
-    public override string ToString() => EmailAddress;
+    public override string ToString() => $"Patient email address: {EmailAddress}";
     
     
 };

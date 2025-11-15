@@ -1,6 +1,7 @@
 using Domain.Entities.Patients;
 using Domain.Interfaces;
 using Infrastructure.Persistance;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repositories;
@@ -16,9 +17,10 @@ public class PatientRepository : IPatientRepository
         _logger = logger;
     }
 
-    public Task<List<Patient>> GetAllPatients()
+    public async Task<List<Patient>> GetAllPatients()
     {
         _logger.LogInformation("Getting all patients from database");
-        throw new NotImplementedException();
+       return await _context.Patients.ToListAsync();
+       
     }
 }

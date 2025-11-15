@@ -2,13 +2,24 @@ namespace Domain.Entities.PatientValueObjects;
 
 public sealed record PatientId
 {
-    public Guid Value { get; }
+    public Guid _value { get; set; }
 
-    private PatientId(Guid value)
+
+    public Guid Value
     {
-        if (value == Guid.Empty)
-            throw new ArgumentException("PatientId cannot be empty.", nameof(value));
+        get => _value;
+        set
+        {
+            if (value == Guid.Empty)
+            {
+                throw new ArgumentException(nameof(value));
+            }
+            _value = value;
+        }
+    }
 
+    public PatientId(Guid value)
+    {
         Value = value;
     }
     
@@ -24,5 +35,5 @@ public sealed record PatientId
         return new PatientId(id);
     }
 
-    public override string ToString() => Value.ToString();
+    public override string ToString() => $"PatientId {Value}";
 }

@@ -1,8 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities.PatientValueObjects;
 
 namespace Domain.Entities.Patients;
 
+[Table("Patients")]
 public class Patient
 {
     public PatientId PatientId { get; private set; }
