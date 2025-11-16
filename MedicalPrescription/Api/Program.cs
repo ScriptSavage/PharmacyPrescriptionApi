@@ -1,3 +1,4 @@
+using Api.Middlewares;
 using Application.Extension;
 using Infrastructure.Extensions;
 using NLog.Web;
@@ -11,6 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddApplicationLayer();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Host.UseNLog();
 
@@ -23,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.MapControllers();
 
