@@ -1,4 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities.Addresses.AddressValueObjects;
+using Domain.Entities.Patients;
+using Domain.Entities.Patients.PatientValueObjects;
+using Domain.Entities.PatientValueObjects;
 
 namespace Domain.Entities.Addresses;
 
@@ -34,4 +38,10 @@ public class Address
     {
         return $"Address[AddressId={AddressId}][City={City}][Street={Street} PostalCode={PostalCode}]";
     }
+
+
+    public PatientId PatientId { get; set; }
+    [ForeignKey(nameof(PatientId))]
+    public Patient Patient { get; set; }
+    
 }

@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions\" />
+      <PackageReference Include="NLog.Web.AspNetCore" Version="6.0.5" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="NLog.Web.AspNetCore" Version="6.0.5" />
+      <Folder Include="Exceptions\" />
     </ItemGroup>
 
 </Project>

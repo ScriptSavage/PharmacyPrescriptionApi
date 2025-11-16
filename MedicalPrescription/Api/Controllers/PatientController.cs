@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/patient")]
+[Route("api/patients")]
 public class PatientController : ControllerBase
 {
     private readonly IPatientService _patientService;
@@ -20,7 +20,18 @@ public class PatientController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllPatients()
     {
+        _logger.LogInformation("Getting all patients from Controller");
        var patientsDto =  await _patientService.GetPatientsAsync();
        return Ok(patientsDto);
     }
+
+    [HttpGet("{id:int}/address")]
+    public async Task<IActionResult> GetPatient(Guid id)
+    {
+       var data =  await _patientService.GetPatientAddressByIdAsync(id);
+       _logger.LogInformation($"Getting patient Address with id {id} from Controller");
+       return Ok(data);
+    }
+
+    
 }

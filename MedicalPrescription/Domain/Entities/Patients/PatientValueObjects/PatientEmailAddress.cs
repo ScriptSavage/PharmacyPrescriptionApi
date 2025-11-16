@@ -1,4 +1,4 @@
-namespace Domain.Entities.PatientValueObjects;
+namespace Domain.Entities.Patients.PatientValueObjects;
 
 public class PatientEmailAddress
 {

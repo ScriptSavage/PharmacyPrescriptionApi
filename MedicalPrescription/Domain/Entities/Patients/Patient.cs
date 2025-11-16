@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Addresses;
+using Domain.Entities.Patients.PatientValueObjects;
 using Domain.Entities.PatientValueObjects;
 
 namespace Domain.Entities.Patients;
@@ -40,6 +42,9 @@ public class Patient
         EmailAddress = newEmailAddress;
     }
 
+
+
+    public Address Address { get; set; }
 
 }
 

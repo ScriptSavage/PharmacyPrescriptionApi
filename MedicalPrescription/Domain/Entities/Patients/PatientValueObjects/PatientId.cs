@@ -1,39 +1,31 @@
-namespace Domain.Entities.PatientValueObjects;
+namespace Domain.Entities.Patients.PatientValueObjects;
 
 public sealed record PatientId
 {
-    public Guid _value { get; set; }
+    private Guid _patientId { get; set; }
 
 
-    public Guid Value
+    public Guid PatientIdValue
     {
-        get => _value;
+        get => _patientId;
         set
         {
             if (value == Guid.Empty)
             {
                 throw new ArgumentException(nameof(value));
             }
-            _value = value;
+            _patientId = value;
         }
     }
 
-    public PatientId(Guid value)
+    public PatientId(Guid patientIdValue)
     {
-        Value = value;
+        PatientIdValue = patientIdValue;
     }
     
-    public static implicit operator Guid(PatientId id) => id.Value;
+    public static implicit operator Guid(PatientId id) => id.PatientIdValue;
 
-    public static implicit operator PatientId(Guid id)
-    {
-        if (id == Guid.Empty)
-        {
-            throw new ArgumentException("PatientId cannot be empty.", nameof(id));
-        }
+    public static implicit operator PatientId(Guid id) =>  new PatientId(id);
 
-        return new PatientId(id);
-    }
-
-    public override string ToString() => $"PatientId {Value}";
+    public override string ToString() => $"PatientId {PatientIdValue}";
 }

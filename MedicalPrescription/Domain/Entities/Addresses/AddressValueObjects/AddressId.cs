@@ -2,31 +2,31 @@ namespace Domain.Entities.Addresses.AddressValueObjects;
 
 public class AddressId
 {
-    private Guid _value;
+    private Guid _adddressIdvalue;
 
-    public AddressId(Guid value)
+    public AddressId(Guid addressIdValue)
     {
-        Value = value;
+        AddressIdValue = addressIdValue;
     }
 
-    public Guid Value
+    public Guid AddressIdValue
     {
-        get => _value;
+        get => _adddressIdvalue;
         set
         {
             if (value == Guid.Empty)
             {
                 throw new ArgumentException(nameof(value));
             }
-            _value = value;
+            _adddressIdvalue = value;
         }
     }
 
-    public static implicit operator Guid(AddressId addressId) => addressId.Value;
+    public static implicit operator Guid(AddressId addressId) => addressId.AddressIdValue;
     public static implicit operator AddressId(Guid addressId) => new AddressId(addressId);
 
     public override string ToString()
     {
-        return "AddressId[Value=" + Value + "]";
+        return "AddressId[Value=" + AddressIdValue + "]";
     }
 }
