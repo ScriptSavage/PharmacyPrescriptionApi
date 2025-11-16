@@ -1,5 +1,7 @@
 using Application.Interfaces;
 using Domain.Dto;
+using Domain.Entities.Addresses;
+using Domain.Entities.Patients;
 using Domain.Entities.Patients.PatientValueObjects;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -18,11 +20,12 @@ public class PatientService : IPatientService
     }
     
 
-    public async Task<List<PatientDto>> GetPatientsAsync()
+    public async Task<List<PatientDto>> GetPatientsAsync(string searchOption)
     {
-        var data = await _patientRepository.GetAllPatients();
+        
+        var data = await _patientRepository.GetAllPatients(searchOption);
 
-      return  data.Select(e => new PatientDto()
+      return data.Select(e => new PatientDto()
         {
                 FirstName = e.FirstName,
                 LastName = e.LastName,
@@ -58,8 +61,18 @@ public class PatientService : IPatientService
                 Street = data.Address.Street,
             }
         };
-
+      
         return newPatientAddressDto;
+    }
+
+    public async Task<int> AddNewPatientAsync(PatientAddressDto patientAddressDto)
+    {
+        var p = new Patient();
+        var a = new Address();
         
+        p.AddNewPatient(p);
+
+       return await _patientRepository.AddNewPatient(p, a);
+        throw new NotImplementedException();
     }
 }

@@ -18,10 +18,10 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllPatients()
+    public async Task<IActionResult> GetAllPatients([FromQuery] string searchPhrase)
     {
         _logger.LogInformation("Getting all patients from Controller");
-       var patientsDto =  await _patientService.GetPatientsAsync();
+       var patientsDto =  await _patientService.GetPatientsAsync(searchPhrase);
        return Ok(patientsDto);
     }
 

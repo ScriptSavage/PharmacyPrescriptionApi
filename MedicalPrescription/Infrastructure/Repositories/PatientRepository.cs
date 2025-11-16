@@ -1,5 +1,7 @@
+using Domain.Entities.Addresses;
 using Domain.Entities.Patients;
 using Domain.Interfaces;
+using Infrastructure.Exceptions;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -17,10 +19,14 @@ public class PatientRepository : IPatientRepository
         _logger = logger;
     }
 
-    public async Task<List<Patient>> GetAllPatients()
+    public async Task<List<Patient>> GetAllPatients(string? searchOption)
     {
         _logger.LogInformation("Getting all patients from database");
-        return await _context.Patients.AsNoTracking().ToListAsync();
+        
+        return await _context.Patients
+            .Where(e=>searchOption == null || e.Address.City.CityName.ToLower().Contains(searchOption.ToLower()))
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<Patient> GetPatientAddressById(Guid patientId)
@@ -41,9 +47,17 @@ public class PatientRepository : IPatientRepository
         if (!patientExists)
         {
             _logger.LogInformation("Patient with id {PatientId} does not exist", patientId);
-            throw new Exception("Patient does not exist");
+            throw new NotFoundException("Patient does not exist");
         }
 
         return patientExists;
+    }
+
+    public async Task<int> AddNewPatient(Patient patient , Address address)
+    {
+        var data = await _context.Patients.AddAsync(patient);
+        patient.Address = address;
+        _logger.LogInformation("Adding new Patient with Address");
+        return await _context.SaveChangesAsync();
     }
 }
