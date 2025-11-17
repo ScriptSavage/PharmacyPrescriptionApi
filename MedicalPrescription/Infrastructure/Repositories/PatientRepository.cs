@@ -55,7 +55,7 @@ public class PatientRepository : IPatientRepository
 
     public async Task<int> AddNewPatient(Patient patient , Address address)
     {
-        var data = await _context.Patients.AddAsync(patient);
+         await _context.Patients.AddAsync(patient);
         patient.Address = address;
         _logger.LogInformation("Adding new Patient with Address");
         return await _context.SaveChangesAsync();
