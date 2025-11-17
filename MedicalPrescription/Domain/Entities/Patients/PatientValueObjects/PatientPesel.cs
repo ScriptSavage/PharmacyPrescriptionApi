@@ -9,7 +9,7 @@ public record PatientPesel
         get => _pesel;
         set
         {
-            if (string.IsNullOrWhiteSpace(value) || string.IsNullOrEmpty(value) || value.Length != 8)
+            if (string.IsNullOrWhiteSpace(value) || string.IsNullOrEmpty(value) || value.Length < 8)
             {
                 throw new ArgumentException("Pesel cannot be empty or white space.", nameof(value));
             }
