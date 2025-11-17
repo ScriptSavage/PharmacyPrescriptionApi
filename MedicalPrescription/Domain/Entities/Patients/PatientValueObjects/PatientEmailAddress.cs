@@ -13,6 +13,7 @@ public class PatientEmailAddress
             {
                 throw new ArgumentException("Email address not correct", nameof(value));
             }
+            _emailAddress = value;
         }
     }
 
