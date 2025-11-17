@@ -30,6 +30,7 @@ public class Patient
     public Patient()
     {
     }
+    
 
     public void ChangeEmailAddress(string newEmailAddress)
     {
@@ -41,19 +42,6 @@ public class Patient
 
         EmailAddress = newEmailAddress;
     }
-
-    public void AddNewPatient(Patient patient)
-    {
-        var newPatient = new Patient()
-        {
-            FirstName = patient.FirstName,
-            LastName = patient.LastName,
-            Pesel = patient.Pesel,
-            PhoneNumber = patient.PhoneNumber,
-            EmailAddress = patient.EmailAddress
-        };
-    }
-
 
     public Address Address { get; set; }
 
