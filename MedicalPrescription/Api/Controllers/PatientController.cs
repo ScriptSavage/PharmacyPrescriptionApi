@@ -1,4 +1,6 @@
+using System.Net;
 using Application.Interfaces;
+using Domain.Dto;
 using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,5 +35,16 @@ public class PatientController : ControllerBase
        return Ok(data);
     }
 
-    
+    [HttpPost]
+    public async Task<IActionResult> CreatePatient([FromBody] PatientAddressDto patientDto)
+    {
+       await _patientService.AddNewPatientAsync(patientDto);
+        
+       if (ModelState.IsValid)
+       {
+           return StatusCode(201);   
+       }
+
+       return BadRequest(ModelState);
+    }
 }
