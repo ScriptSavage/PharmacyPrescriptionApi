@@ -1,8 +1,10 @@
 using Application.Interfaces;
 using Domain.Dto;
 using Domain.Entities.Addresses;
+using Domain.Entities.Addresses.AddressValueObjects;
 using Domain.Entities.Patients;
 using Domain.Entities.Patients.PatientValueObjects;
+using Domain.Entities.PatientValueObjects;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -67,12 +69,31 @@ public class PatientService : IPatientService
 
     public async Task<int> AddNewPatientAsync(PatientAddressDto patientAddressDto)
     {
-        var p = new Patient();
-        var a = new Address();
         
-        p.AddNewPatient(p);
+        var patientId = new PatientId(Guid.NewGuid());
+        var addressId = new AddressId(Guid.NewGuid());
 
+
+        var p = new Patient(
+                patientId,
+                new PatientFirstName(patientAddressDto.FirstName),
+                new PatientLastName(patientAddressDto.LastName),
+                new PatientPesel(patientAddressDto.Pesel),
+                new PatientPhoneNumber(patientAddressDto.PhoneNumber),
+                new PatientEmailAddress(patientAddressDto.EmailAddress)
+            );
+
+     var a = p.Address = new Address(
+            addressId,
+            new City(patientAddressDto.AddressDto.City),
+            new Street(patientAddressDto.AddressDto.Street),
+            new PostalCode(patientAddressDto.AddressDto.PostalCode)
+        );
+        
+        p.Address.AddressId.AddressIdValue = addressId;
+     
+        
        return await _patientRepository.AddNewPatient(p, a);
-        throw new NotImplementedException();
+       
     }
 }
